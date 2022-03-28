@@ -1,0 +1,1 @@
+chrom	bin_num	cutSitesNumber	gcper	mapscore	rowsum
