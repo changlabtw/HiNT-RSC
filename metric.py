@@ -36,8 +36,8 @@ def calculate_correlation_with_groundtruth(trg_seg_file,
     
     pearson = round(stats.pearsonr(gt_seg_overall, trg_seq_overall)[0],3)
     soearman = round(stats.spearmanr(gt_seg_overall, trg_seq_overall)[0],3)
-    print(f'Pearson r : ', pearson)
-    print(f'Spearman r : ', soearman)
+    print(f'Pearson corr. : ', pearson)
+    print(f'Spearman corr. : ', soearman)
     return pearson, soearman
 
 
