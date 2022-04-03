@@ -1,5 +1,5 @@
 import pandas as pd
-import straw
+import hicstraw
 import numpy as np
 import math
 import tabix
@@ -36,7 +36,7 @@ def generate_coverage_profile_intra_inter(
     for chr_ in chr_length.keys():
         
         # get contacts
-        result = straw.straw("observed", 'NONE', contact_matrix_uri, trg_chr.split('chr')[1], chr_.split('chr')[1], 'BP', resolution)
+        result = hicstraw.straw("observed", 'NONE', contact_matrix_uri, trg_chr.split('chr')[1], chr_.split('chr')[1], 'BP', resolution)
 
         # build 1D coverage profile
         for i in range(len(result)):
@@ -68,7 +68,7 @@ def generate_coverage_profile_intra(
     coverage_profile = np.zeros(bin_num)
         
     # get contacts
-    result = straw.straw("observed", 'NONE', contact_matrix_uri, trg_chr.split('chr')[1], trg_chr.split('chr')[1], 'BP', resolution)
+    result = hicstraw.straw("observed", 'NONE', contact_matrix_uri, trg_chr.split('chr')[1], trg_chr.split('chr')[1], 'BP', resolution)
 
     # build 1D coverage profile
     for i in range(len(result)):
