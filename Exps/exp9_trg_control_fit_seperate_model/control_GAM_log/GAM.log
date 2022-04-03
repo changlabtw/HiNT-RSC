@@ -1,0 +1,25 @@
+[1] "2022-04-03 14:12:06 CST"
+[1] "Input : bias_allchroms_nonzeros_control.txt"
+
+Family: poisson 
+Link function: log 
+
+Formula:
+rowsum ~ s(gcper) + s(mapscore) + s(cutSitesNumber)
+
+Parametric coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept) 1.125e+01  1.563e-05  719858   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                    edf Ref.df    Chi.sq p-value    
+s(gcper)          8.946  8.999 301164149  <2e-16 ***
+s(mapscore)       8.983  9.000  54471824  <2e-16 ***
+s(cutSitesNumber) 8.862  8.990   3544720  <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.471   Deviance explained = 58.2%
+UBRE = 6503.9  Scale est. = 1         n = 56969
