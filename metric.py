@@ -106,8 +106,8 @@ def calculate_precision_racall(trg_seg_file,
     print("\t>= 50Mb : ", len([i for i in overlap_sizes if i >= 50000000]))
 
     # avg. hit size and hit frac
-    avg_overlap_size = round(np.mean(overlap_sizes),3)
-    print(f'average hit size : {avg_overlap_size}')
+    sum_overlap_size = round(np.sum(overlap_sizes),3)
+    print(f'sum of  hit size : {sum_overlap_size}')
     avg_overlap_frac = round(np.mean(overlap_fracs),3)
     print(f'average hit fraction : {avg_overlap_frac}')
 
