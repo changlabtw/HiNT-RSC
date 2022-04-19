@@ -2,6 +2,7 @@ import pandas as pd
 import hicstraw
 import numpy as np
 import math
+import os
 import tabix
 
 ref_genome_folder = 'Data/ref_genome/hg19'
@@ -245,3 +246,24 @@ def load_seg_pair(
             if abs(float(copy_ratio)) > threshold :
                 cnv_pair_dict[chr_].append([start, end])
     return cnv_pair_dict
+
+
+def load_bin_dir_to_ratio(bin_dir) -> dict :
+   
+    bin_dict = dict()
+    for key in chr_bin_number.keys():
+        bin_dict[key] = np.zeros(chr_bin_number[key])
+    for file in sorted(os.listdir(bin_dir)):
+        if (file[0] == '.') or not(file.split('.')[-1] == 'bin'):
+            continue
+        chr_ = file.split('.')[0].split('_')[-1]
+        with open(f'{bin_dir}/{file}', 'r') as f:
+            for line in f.readlines()[1:]:
+                start_, end_, obs, exp ,var = line.strip().split()
+                bin_ = math.floor(int(start_)/resolution)
+                if  not ( (float(exp) == 0) or (float(obs) == 0) ):
+                    log2_ratio = math.log2(float(obs)/float(exp))
+                else:
+                    log2_ratio = 0
+                bin_dict[chr_][bin_] = log2_ratio
+    return bin_dict
