@@ -267,3 +267,22 @@ def load_bin_dir_to_ratio(bin_dir) -> dict :
                     log2_ratio = 0
                 bin_dict[chr_][bin_] = log2_ratio
     return bin_dict
+
+def load_bin_dir(bin_dir):
+   
+    obs_dict = dict()
+    exp_dict = dict()
+    for key in chr_bin_number.keys():
+        obs_dict[key] = np.zeros(chr_bin_number[key])
+        exp_dict[key] = np.zeros(chr_bin_number[key])
+    for file in sorted(os.listdir(bin_dir)):
+        if (file[0] == '.') or not(file.split('.')[-1] == 'bin'):
+            continue
+        chr_ = file.split('.')[0].split('_')[-1]
+        with open(f'{bin_dir}/{file}', 'r') as f:
+            for line in f.readlines()[1:]:
+                start_, end_, obs, exp ,var = line.strip().split()
+                bin_ = math.floor(int(start_)/resolution)
+                obs_dict[chr_][bin_] = float(obs)
+                exp_dict[chr_][bin_] = float(exp)
+    return obs_dict, exp_dict
