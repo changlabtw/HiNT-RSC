@@ -1,0 +1,2 @@
+chr	path
+chr1	example_bin2/example_bin.bin
