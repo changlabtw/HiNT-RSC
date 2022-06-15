@@ -38,7 +38,7 @@ def calculate_dict_correlation(dict1, dict2):
     return pearson, spearman
 
 def calculate_correlation_with_groundtruth(trg_seg_file, 
-                                            groundtruth_file = '../../CNV/K562_WGS_CNV/K562_WGS_CNV_lambda4.txt'):
+                                            groundtruth_file = '../../CNV/WGS/K562/BICseq2/K562_WGS_CNV_lambda4.txt'):
     gt_seg = load_seg_to_bin(groundtruth_file)
     trg_seq = load_seg_to_bin(trg_seg_file)
 
@@ -56,7 +56,7 @@ def calculate_correlation_with_groundtruth(trg_seg_file,
 
 
 def calculate_precision_racall(trg_seg_file, 
-                                groundtruth_file = 'CNV/K562_WGS_CNV/K562_WGS_CNV_lambda4.txt', 
+                                groundtruth_file = '../../CNV/WGS/K562/BICseq2/K562_WGS_CNV_lambda4.txt', 
                                 copy_ratio_threshold : float = 0.3, 
                                 iou_threshold : float = 0.50):
     gt_seg_pair_dict = load_seg_pair(groundtruth_file, threshold = copy_ratio_threshold, has_offset = True)
