@@ -243,8 +243,10 @@ def load_seg_pair(
                 end = int(end) if not int(end) > chr_length[chr_] else chr_length[chr_]
             
             # keep only significant copy ratio
-            if abs(float(copy_ratio)) > threshold :
-                cnv_pair_dict[chr_].append([start, end])
+            if float(copy_ratio) >= threshold :
+                cnv_pair_dict[chr_].append([start, end, 'gain'])
+            elif float(copy_ratio) <= (threshold * -1) : 
+                cnv_pair_dict[chr_].append([start, end, 'loss'])
     return cnv_pair_dict
 
 

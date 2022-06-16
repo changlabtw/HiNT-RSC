@@ -59,16 +59,20 @@ def calculate_precision_racall(trg_seg_file,
                                 groundtruth_file = '../../CNV/WGS/K562/BICseq2/K562_WGS_CNV_lambda4.txt', 
                                 copy_ratio_threshold : float = 0.3, 
                                 iou_threshold : float = 0.50):
+    
+    # get pair dict of chr, each chr is a list of [start, end, state] (state = 'gain' or 'loss')
     gt_seg_pair_dict = load_seg_pair(groundtruth_file, threshold = copy_ratio_threshold, has_offset = True)
-    trg_seg_pair_dicr = load_seg_pair(trg_seg_file, threshold = copy_ratio_threshold)
+    trg_seg_pair_dict = load_seg_pair(trg_seg_file, threshold = copy_ratio_threshold)
 
     # report the number of ground truth and targer
-    num_gt, num_trg = 0, 0
+    num_gt_pair, num_trg_pair = 0, 0
+    all_gt_sizes = list()
     for chr_ in gt_seg_pair_dict.keys():
-        num_gt = num_gt + len(gt_seg_pair_dict[chr_])
-        num_trg = num_trg + len(trg_seg_pair_dicr[chr_])
-    print(f'Number of ground truth : {num_gt}')
-    print(f'Number of target : {num_trg}')
+        num_gt_pair = num_gt_pair + len(gt_seg_pair_dict[chr_])
+        num_trg_pair = num_trg_pair + len(trg_seg_pair_dict[chr_])
+        for gt_pair in gt_seg_pair_dict[chr_]: all_gt_sizes.append(gt_pair[1]-gt_pair[0])
+    print(f'Number of ground truth : {num_gt_pair}')
+    print(f'Number of target : {num_trg_pair}')
 
     # generate seg that overlap over threshold
     def getIntercept(a, b):
@@ -79,28 +83,21 @@ def calculate_precision_racall(trg_seg_file,
         overlap_size = getIntercept(a,b)
         IOU_frac = getIntercept(a,b) / getUnion(a,b)
         return IOU_frac, overlap_size
+    
     hit_pair_dict = dict()
-    overlap_sizes = list()
-    overlap_fracs = list()
-    for key in chr_bin_number.keys():
-        hit_pair_dict[key] = list()
-    for chr_ in trg_seg_pair_dicr.keys():
-        for pair in trg_seg_pair_dicr[chr_]:
+    hit_pair_sizes, overlap_sizes = list(), list()
+    for chr_ in trg_seg_pair_dict.keys():
+        hit_pair_dict[chr_] = list()
+        for pair in trg_seg_pair_dict[chr_]:
             for gt_pair in gt_seg_pair_dict[chr_]:
                 overlap_frac, overlap_size = IOU(pair, gt_pair)
-                if overlap_frac >= iou_threshold:
+                if (overlap_frac > iou_threshold) and (pair[2] == gt_pair[2]):  # iou > threshold and there are in the same state (gain or loss)
                     hit_pair_dict[chr_].append(pair)
+                    hit_pair_sizes.append(gt_pair[1] - gt_pair[0])
                     overlap_sizes.append(overlap_size)
-                    overlap_fracs.append(overlap_frac)
-    print(f'Number of hits : {len(overlap_fracs)}')
+    print(f'Number of hits : {len(hit_pair_sizes)}')
 
     # precision and recall
-    num_gt_pair = 0
-    for chr_ in gt_seg_pair_dict.keys():
-        num_gt_pair = num_gt_pair + len(gt_seg_pair_dict[chr_]) 
-    num_trg_pair = 0
-    for chr_ in trg_seg_pair_dicr.keys():
-        num_trg_pair = num_trg_pair + len(trg_seg_pair_dicr[chr_])
     num_hit_pair = 0 
     for chr_ in hit_pair_dict.keys():
         num_hit_pair = num_hit_pair + len(hit_pair_dict[chr_])
@@ -110,17 +107,14 @@ def calculate_precision_racall(trg_seg_file,
     
     # hit size by length
     print("hits by size : ")
-    print("\t < 1Mb : ", len([i for i in overlap_sizes if i < 1000000]))
-    print("\t1Mb - 2Mb : ", len([i for i in overlap_sizes if 1000000 <= i < 2000000]))
-    print("\t2Mb - 5Mb : ", len([i for i in overlap_sizes if 2000000 <= i < 5000000]))
-    print("\t5Mb - 10Mb : ", len([i for i in overlap_sizes if 5000000 <= i < 10000000]))
-    print("\t10Mb - 20Mb : ", len([i for i in overlap_sizes if 10000000 <= i < 20000000]))
-    print("\t20Mb - 50Mb : ", len([i for i in overlap_sizes if 20000000 <= i < 50000000]))
-    print("\t>= 50Mb : ", len([i for i in overlap_sizes if i >= 50000000]))
+    print("\t < 1Mb : ", len([i for i in hit_pair_sizes if i < 1000000]), ' / ', len([i for i in all_gt_sizes if i < 1000000]))
+    print("\t1Mb - 2Mb : ", len([i for i in hit_pair_sizes if 1000000 <= i < 2000000]), ' / ', len([i for i in all_gt_sizes if 1000000 <= i < 2000000]))
+    print("\t2Mb - 5Mb : ", len([i for i in hit_pair_sizes if 2000000 <= i < 5000000]), ' / ', len([i for i in all_gt_sizes if 2000000 <= i < 5000000]))
+    print("\t5Mb - 10Mb : ", len([i for i in hit_pair_sizes if 5000000 <= i < 10000000]), ' / ', len([i for i in all_gt_sizes if 5000000 <= i < 10000000]))
+    print("\t10Mb - 20Mb : ", len([i for i in hit_pair_sizes if 10000000 <= i < 20000000]), ' / ', len([i for i in all_gt_sizes if 10000000 <= i < 20000000]))
+    print("\t20Mb - 50Mb : ", len([i for i in hit_pair_sizes if 20000000 <= i < 50000000]), ' / ', len([i for i in all_gt_sizes if 20000000 <= i < 50000000]))
+    print("\t>= 50Mb : ", len([i for i in hit_pair_sizes if i >= 50000000]), ' / ', len([i for i in all_gt_sizes if i >= 50000000]))
 
     # avg. hit size and hit frac
     sum_overlap_size = round(np.sum(overlap_sizes),3)
-    print(f'sum of  hit size : {sum_overlap_size}')
-    avg_overlap_frac = round(np.mean(overlap_fracs),3)
-    print(f'average hit fraction : {avg_overlap_frac}')
-
+    print(f'sum of overlap size : {sum_overlap_size}')
