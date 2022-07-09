@@ -289,7 +289,7 @@ def load_bin_dir(bin_dir):
                 exp_dict[chr_][bin_] = float(exp)
     return obs_dict, exp_dict
 
-def load_cnvpytpr_to_bin(cnvpytor_path='../CNV/WGS/K562/cnvpytor/K562_CNV_50000.tsv'):
+def load_cnvpytpr_to_bin(cnvpytor_path='../../CNV/WGS/K562/cnvpytor/K562_CNV_50000.tsv'):
     cnvpytor_cnv_dict = dict()
     for key in chr_length.keys():
         cnvpytor_cnv_dict[key] = np.ones(chr_bin_number[key])
@@ -311,7 +311,7 @@ def load_cnvpytpr_to_bin(cnvpytor_path='../CNV/WGS/K562/cnvpytor/K562_CNV_50000.
                 cnvpytor_cnv_dict[f'chr{chr_number}'][bin_num] = value
     return cnvpytor_cnv_dict
 
-def load_freec_to_bin(freec_path='../CNV/WGS/K562/freec/G15509.K-562.2.bam_ratio.txt'):
+def load_freec_to_bin(freec_path='../../CNV/WGS/K562/freec/G15509.K-562.2.bam_ratio.txt'):
     freec_cnv_dict = dict()
     for key in chr_length.keys():
         freec_cnv_dict[key] = np.zeros(chr_bin_number[key])

@@ -23,7 +23,7 @@ chr_bin_number = dict()
 for key in chr_length.keys():
     chr_bin_number[key] = math.floor(chr_length[key] / resolution) + 1
 
-def calculate_dict_correlation(dict1, dict2):
+def calculate_dict_correlation(dict1, dict2, pearson = True, spearman = True):
     if not len(dict1.keys()) == len(dict2.keys()):
         raise Exception('dict size inconsistent') 
     
@@ -31,10 +31,12 @@ def calculate_dict_correlation(dict1, dict2):
     for key in chr_bin_number.keys():
         dict_list_1 = dict_list_1 + list(dict1[key])
         dict_list_2 = dict_list_2 + list(dict2[key])
-    pearson = round(stats.pearsonr(dict_list_1, dict_list_2)[0],3)
-    spearman = round(stats.spearmanr(dict_list_1, dict_list_2)[0],3)
-    print(f'Pearson corr. : ', pearson)
-    print(f'Spearman corr. : ', spearman)
+    if pearson:
+        pearson = round(stats.pearsonr(dict_list_1, dict_list_2)[0],3)
+        print(f'Pearson corr. : ', pearson)
+    if spearman:
+        spearman = round(stats.spearmanr(dict_list_1, dict_list_2)[0],3)
+        print(f'Spearman corr. : ', spearman)
     return pearson, spearman
 
 def calculate_correlation_with_groundtruth(trg_seg_file, 
