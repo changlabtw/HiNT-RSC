@@ -288,3 +288,45 @@ def load_bin_dir(bin_dir):
                 obs_dict[chr_][bin_] = float(obs)
                 exp_dict[chr_][bin_] = float(exp)
     return obs_dict, exp_dict
+
+def load_cnvpytpr_to_bin(cnvpytor_path='../CNV/WGS/K562/cnvpytor/K562_CNV_50000.tsv'):
+    cnvpytor_cnv_dict = dict()
+    for key in chr_length.keys():
+        cnvpytor_cnv_dict[key] = np.ones(chr_bin_number[key])
+    with open(cnvpytor_path, 'r') as f:
+        for line in f.readlines():
+            line_split = line.strip().split()
+            chr_number, start_, end_ = line_split[1].split(':')[0], line_split[1].split(':')[1].split('-')[0], line_split[1].split(':')[1].split('-')[1]
+            start_bin = math.floor(int(start_) / resolution)
+            end_bin = math.floor(int(end_) / resolution)
+            value = float(line_split[3])
+            if (chr_number == 'Y') or (chr_number == 'M'):
+                continue
+            # we only display upto 3
+            if value >= 3:
+                value = 2.98
+            for bin_num in range(start_bin, end_bin+1):
+                if bin_num >= chr_bin_number[f'chr{chr_number}']:
+                    break
+                cnvpytor_cnv_dict[f'chr{chr_number}'][bin_num] = value
+    return cnvpytor_cnv_dict
+
+def load_freec_to_bin(freec_path='../CNV/WGS/K562/freec/G15509.K-562.2.bam_ratio.txt'):
+    freec_cnv_dict = dict()
+    for key in chr_length.keys():
+        freec_cnv_dict[key] = np.zeros(chr_bin_number[key])
+    with open(freec_path, 'r') as f:
+        for line in f.readlines()[1:]:
+            line_split = line.strip().split()
+            chr_number, start_ = line_split[0], int(float(line_split[1]))
+            copyNumber = int(line_split[4])
+            # only display upto 6
+            if copyNumber >= 6:
+                copyNumber = 5.98
+            if (chr_number == 'Y') or (chr_number == 'M'):
+                continue
+            start_bin = math.floor(int(start_) / resolution)
+            if start_bin >= chr_bin_number[f'chr{chr_number}']:
+                break
+            freec_cnv_dict[f'chr{chr_number}'][start_bin] = copyNumber
+    return freec_cnv_dict
