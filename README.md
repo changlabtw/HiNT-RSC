@@ -1,5 +1,7 @@
 # HiNT-RSC
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23190181.svg)](https://doi.org/10.5281/zenodo.23190181)
+
 HiNT-RSC is a residual-processing module for [HiNT-CNV](https://github.com/parklab/HiNT), the copy-number module of
 HiNT (Wang *et al.*, *Genome Biology* 2020). HiNT-CNV turns a Hi-C contact map into a one-dimensional coverage profile,
 normalizes it with a generalized additive model (GC content, mappability, restriction sites) and segments the residuals
@@ -153,7 +155,9 @@ Please also cite HiNT:
 > Su Wang *et al.* HiNT: a computational method for detecting copy number variations and translocations from Hi-C data.
 > *Genome Biology* 21, 73 (2020). https://doi.org/10.1186/s13059-020-01986-5
 
-Machine-readable metadata are in [`CITATION.cff`](CITATION.cff).
+To cite the software itself, use its Zenodo DOI: [10.5281/zenodo.23190181](https://doi.org/10.5281/zenodo.23190181) (all
+versions; v1.2.0 is [10.5281/zenodo.23190182](https://doi.org/10.5281/zenodo.23190182)). Machine-readable metadata
+are in [`CITATION.cff`](CITATION.cff).
 
 ## License and attribution
 
