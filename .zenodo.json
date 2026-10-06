@@ -1,0 +1,15 @@
+{
+  "title": "HiNT-RSC: residual smoothing for Hi-C-based copy number variation detection with HiNT-CNV",
+  "upload_type": "software",
+  "description": "<p>HiNT-RSC is a residual-processing module for HiNT-CNV, the copy-number module of HiNT. It smooths HiNT-CNV's GAM-normalized Hi-C coverage residuals, can subtract a control Hi-C residual or use intra-chromosomal contacts only, and segments the result with BIC-seq2. The repository contains the <code>hint-rsc</code> command-line tool for .hic data and the code, small derived inputs and frozen results that reproduce the APBC 2026 paper (folder <code>paper/</code>).</p>",
+  "creators": [
+    {"name": "Chen, Wei-Han", "affiliation": "Department of Computer Science, National Chengchi University, Taipei, Taiwan"},
+    {"name": "Chang, Jia-Ming", "affiliation": "Department of Computer Science and Institute of Neuroscience, National Chengchi University, Taipei, Taiwan"}
+  ],
+  "license": "MIT",
+  "keywords": ["copy number variation", "Hi-C", "residual smoothing", "segmentation granularity", "HiNT", "BIC-seq2"],
+  "related_identifiers": [
+    {"identifier": "https://github.com/changlabtw/HiNT-RSC", "relation": "isSupplementTo", "scheme": "url"},
+    {"identifier": "10.1186/s13059-020-01986-5", "relation": "references", "scheme": "doi"}
+  ]
+}
