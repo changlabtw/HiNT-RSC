@@ -1,0 +1,57 @@
+cff-version: 1.2.0
+message: "If you use HiNT-RSC or the analysis code in this repository, please cite the paper below (preferred-citation)."
+title: "HiNT-RSC: residual smoothing for Hi-C-based copy number variation detection with HiNT-CNV"
+version: 1.1.0
+date-released: 2026-10-06
+license: MIT
+repository-code: "https://github.com/changlabtw/HiNT-RSC"
+url: "https://github.com/changlabtw/HiNT-RSC"
+# TODO: add ORCID iDs for both authors, and a Zenodo DOI (identifiers) once the release is archived.
+authors:
+  - family-names: Chen
+    given-names: Wei-Han
+    affiliation: "Department of Computer Science, National Chengchi University, Taipei, Taiwan"
+  - family-names: Chang
+    given-names: Jia-Ming
+    affiliation: "Department of Computer Science and Institute of Neuroscience, National Chengchi University, Taipei, Taiwan"
+keywords:
+  - copy number variation
+  - Hi-C
+  - residual smoothing
+  - segmentation granularity
+  - HiNT
+  - BIC-seq2
+# TODO: replace with the journal/proceedings reference (volume, pages, DOI) once the paper is published.
+preferred-citation:
+  type: conference-paper
+  title: "HiNT-RSC: Residual Smoothing and Segmentation Granularity in Hi-C-based Copy Number Variation Detection"
+  authors:
+    - family-names: Chen
+      given-names: Wei-Han
+    - family-names: Chang
+      given-names: Jia-Ming
+  conference:
+    name: "Asia Pacific Bioinformatics Conference (APBC 2026)"
+  year: 2026
+  notes: "Manuscript under revision."
+references:
+  - type: article
+    title: "HiNT: a computational method for detecting copy number variations and translocations from Hi-C data"
+    authors:
+      - family-names: Wang
+        given-names: Su
+      - name: "et al."
+    journal: "Genome Biology"
+    volume: 21
+    start: 73
+    year: 2020
+    doi: 10.1186/s13059-020-01986-5
+  - type: thesis
+    title: "Improve the Identification of Copy Number Variation using Smoothing Strategy and Incorporating Control HiC Data"
+    authors:
+      - family-names: Chen
+        given-names: Wei-Han
+    thesis-type: "Master's thesis"
+    institution:
+      name: "National Chengchi University"
+    year: 2022

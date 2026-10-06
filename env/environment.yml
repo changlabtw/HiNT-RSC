@@ -1,0 +1,40 @@
+# Python + R environment for the scripts in paper/ (everything except BIC-seq2, which is in env/bicseq2.yml).
+# Versions are those used to reproduce the paper results (macOS, conda platform osx-64).
+#
+#   conda env create -f env/environment.yml
+#   conda activate hint-rsc
+#
+# On Apple Silicon, create the environment for osx-64 (some bioconda packages have no osx-arm64 build):
+#   CONDA_SUBDIR=osx-64 conda env create -f env/environment.yml
+#   conda activate hint-rsc && conda config --env --set subdir osx-64
+#
+# matplotlib and PyWavelets are installed from PyPI wheels, as in the tested environment (the figures were compared
+# pixel by pixel with that build). hic-straw has no Python 3.11 wheel and is compiled from source; it needs the
+# compiler, libcurl and zlib below. If its build fails, run: pip install --no-build-isolation pybind11 hic-straw==1.3.1
+name: hint-rsc
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11.16
+  - numpy=2.4.6
+  - scipy=1.17.1
+  - pandas=3.0.6
+  - pytabix=0.1                  # tabix-indexed mappability tracks (load.py)
+  - htslib=1.24
+  - bedtools=2.31.1
+  - ucsc-liftover=482            # PANC-1 array segments, hg19 -> hg38 (build_array_reference.py)
+  - ucsc-bigwigtobedgraph=482    # Umap k50 track (make_covariates.py input)
+  - r-base=4.5.3
+  - r-mgcv=1.9_4                 # GAM normalization (scripts/GAM.R)
+  - r-optparse=1.8.2
+  - bioconductor-dnacopy=1.86.0  # CBS (scripts/cbs.R, Supplementary Table S19)
+  - cxx-compiler                 # to build hic-straw
+  - libcurl
+  - zlib
+  - pip
+  - pip:
+      - matplotlib==3.11.2
+      - pywavelets==1.9.0
+      - pybind11==3.1.0
+      - hic-straw==1.3.1         # .hic parsing (Straw); provides the 'hicstraw' module

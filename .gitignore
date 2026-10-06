@@ -1,5 +1,27 @@
-Data/ContactMatrix
-Data/ref_genome
-.DS_Store
+# Run outputs and scratch (paper/output/ holds all intermediate results; final tables are in paper/expected/)
+output/
+tmp/
+*.log
+
+# Raw downloads (fetched by paper/workflow/00_download_data.sh into paper/downloads/)
+downloads/
+*.hic
+*.fa.gz
+*.bw
+*.bedGraph.gz
+
+# Old local data folder of the 2022 thesis layout (anchored: git may match case-insensitively, and paper/data/ is tracked)
+/Data/
+
+# Python, notebooks, environments
 __pycache__/
+*.pyc
 .ipynb_checkpoints/
+venv/
+.venv/
+*env/
+!/env/
+
+# OS and editor files
+.DS_Store
+~$*

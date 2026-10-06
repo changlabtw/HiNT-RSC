@@ -1,0 +1,14 @@
+# BIC-seq2 segmentation (NBICseq-seg.pl, v0.7.2), kept in its own environment because it pins its own R and Perl.
+# Used by every workflow in paper/ (HiNT-CNV and the paper use BIC-seq2 v0.7.2).
+#
+#   conda env create -f env/bicseq2.yml        # on Apple Silicon: CONDA_SUBDIR=osx-64 conda env create -f env/bicseq2.yml
+#
+# The workflows find the segmenter through the BICSEQ variable (default: NBICseq-seg.pl on PATH):
+#   export BICSEQ="$(conda run -n bicseq2 which NBICseq-seg.pl)"
+# (the script locates its MBICseq binary and Perl itself, so the hint-rsc environment can stay active).
+name: bicseq2
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bicseq2-seg=0.7.2

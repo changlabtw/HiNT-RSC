@@ -1,0 +1,9 @@
+event_class	line	n_events	none_l0.5	none_l1	none_l1.5	none_l3	mean3_l1	mean3_l3	mean9_l1	mean9_l3
+large_lowamp	all	60	28	25	24	17	27	20	30	25
+large_lowamp	K562	16	14	12	12	7	13	9	13	12
+large_lowamp	PANC1	23	9	9	9	8	10	9	11	9
+large_lowamp	Caki2	21	5	4	3	2	4	2	6	4
+focal_lt5	all	537	25	11	9	2	11	4	11	2
+focal_lt5	K562	39	16	9	8	1	9	3	8	2
+focal_lt5	PANC1	370	6	2	1	1	2	1	1	0
+focal_lt5	Caki2	128	3	0	0	0	0	0	2	0
