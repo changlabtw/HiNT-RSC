@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use HiNT-RSC or the analysis code in this repository, please cite the paper below (preferred-citation)."
 title: "HiNT-RSC: residual smoothing for Hi-C-based copy number variation detection with HiNT-CNV"
-version: 1.1.0
+version: 1.2.0
 date-released: 2026-10-06
 license: MIT
 repository-code: "https://github.com/changlabtw/HiNT-RSC"

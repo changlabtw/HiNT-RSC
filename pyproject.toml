@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hint-rsc"
+dynamic = ["version"]
+description = "Residual smoothing and segmentation granularity for Hi-C-based CNV detection (HiNT-CNV workflow)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Wei-Han Chen" }, { name = "Jia-Ming Chang" }]
+requires-python = ">=3.9"
+dependencies = ["numpy", "scipy", "pandas", "PyWavelets"]
+
+[project.optional-dependencies]
+hic = ["hic-straw"]          # .hic input (hint-rsc coverage, run/sweep --hic)
+test = ["pytest"]
+
+[project.scripts]
+hint-rsc = "hint_rsc.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/changlabtw/HiNT-RSC"
+
+[tool.setuptools.dynamic]
+version = { attr = "hint_rsc.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+hint_rsc = ["resources/genomes/*.len", "resources/covariates/*.tsv.gz", "resources/problem_regions/*/*.gz", "R/*.R"]

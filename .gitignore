@@ -16,6 +16,10 @@ downloads/
 # Python, notebooks, environments
 __pycache__/
 *.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
 .ipynb_checkpoints/
 venv/
 .venv/
